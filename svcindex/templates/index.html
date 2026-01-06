@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">{{ title }}</div>
+      <div class="subtitle">
+        Mode: <b>{{ mode }}</b> · Host: <b>{{ host }}</b>
+      </div>
+    </header>
+
+    <div class="hint">
+      {% if mode == "agent" %}
+        This page lists services discovered on this host.
+      {% else %}
+        This page lists services discovered via Consul (global view).
+      {% endif %}
+    </div>
+
+    {% for group, items in groups %}
+      <section class="group">
+        <h2>{{ group }}</h2>
+        <div class="cards">
+          {% for s in items %}
+            <div class="card">
+              <div class="row">
+                <div class="name">{{ s.name }}</div>
+                <div class="pill {{ s.status }}">{{ s.status }}</div>
+              </div>
+              {% if s.description %}
+                <div class="desc">{{ s.description }}</div>
+              {% endif %}
+              {% if s.url %}
+                <div class="url"><a href="{{ s.url }}" target="_blank" rel="noreferrer">{{ s.url }}</a></div>
+              {% endif %}
+              <div class="meta">
+                <span class="kv">monitor: <b>{{ s.monitor.mode }}</b></span>
+                {% if s.latency_ms is not none %}
+                  <span class="kv">latency: <b>{{ s.latency_ms }}ms</b></span>
+                {% endif %}
+                {% if s.detail %}
+                  <span class="kv">detail: <b>{{ s.detail }}</b></span>
+                {% endif %}
+              </div>
+              {% if s.tags %}
+                <div class="tags">
+                  {% for t in s.tags %}<span class="tag">{{ t }}</span>{% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+
+    <footer>
+      <div class="foot">
+        svcindex v0.1 · refresh page for latest
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

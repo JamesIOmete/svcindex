@@ -1,0 +1,7 @@
+name: legacy-admin
+type: native
+url: http://localhost:12345
+description: Legacy service; no monitoring endpoint yet
+monitor:
+  mode: none
+tags: [legacy]

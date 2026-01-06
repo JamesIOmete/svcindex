@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "svcindex"
+version = "0.1.0"
+description = "Per-host + hub service index for homelabs"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "Flask>=3.0.0",
+  "PyYAML>=6.0.1",
+  "requests>=2.32.0",
+]
+
+[project.scripts]
+svcindex = "svcindex.main:main"

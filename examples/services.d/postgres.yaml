@@ -1,0 +1,10 @@
+name: postgres
+type: systemd
+url: postgresql://localhost:5432
+description: PostgreSQL database (TCP check only)
+monitor:
+  mode: tcp
+  target: 127.0.0.1:5432
+  interval_s: 30
+  timeout_s: 2
+tags: [database]
