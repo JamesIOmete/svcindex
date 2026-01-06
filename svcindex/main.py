@@ -144,16 +144,16 @@ def discover_from_consul() -> List[Service]:
                     status = "passing"
                     detail = "passing"
 
-	    # Monitor mode inferred from tags if present
-	    tag_list = list(service.get("Tags") or tags or [])
-	    mon_mode = _tag_value(tag_list, "monitor") or "none"
-	    svc_type = _tag_value(tag_list, "type") or "other"
+        # Monitor mode inferred from tags if present
+        tag_list = list(service.get("Tags") or tags or [])
+        mon_mode = _tag_value(tag_list, "monitor") or "none"
+        svc_type = _tag_value(tag_list, "type") or "other"
 
-	    # ✅ Option A: if not monitored, show "unmonitored" unless there is a failing check
-	    if mon_mode == "none" and status != "failing":
-    		status = "unmonitored"
-    		if detail in ("passing", "No checks"):
-        		detail = "No monitoring configured"
+        # ✅ Option A: if not monitored, show "unmonitored" unless there is a failing check
+        if mon_mode == "none" and status != "failing":
+            status = "unmonitored"
+            if detail in ("passing", "No checks"):
+                detail = "No monitoring configured"
 
             url = _guess_url(service.get("Meta") or {}, addr, port, svc_name)
 

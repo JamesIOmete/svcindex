@@ -64,9 +64,9 @@ rsync -a --delete ./ /opt/svcindex/
 chown -R svcindex:svcindex /opt/svcindex
 
 echo "[*] Creating venv..."
-sudo -u svcindex -H bash -lc "python3 -m venv /opt/svcindex/.venv"
-sudo -u svcindex -H bash -lc "/opt/svcindex/.venv/bin/pip install --upgrade pip setuptools wheel"
-sudo -u svcindex -H bash -lc "/opt/svcindex/.venv/bin/pip install -e /opt/svcindex"
+runuser -u svcindex -- /usr/bin/python3 -m venv /opt/svcindex/.venv
+runuser -u svcindex -- /opt/svcindex/.venv/bin/pip install --upgrade pip setuptools wheel
+runuser -u svcindex -- /opt/svcindex/.venv/bin/pip install -e /opt/svcindex
 
 echo "[*] Creating config dirs..."
 mkdir -p /etc/svcindex/services.d
