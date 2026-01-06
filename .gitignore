@@ -17,3 +17,6 @@ build/
 .mypy_cache/
 .ruff_cache/
 .coverage
+
+*.zip
+*:Zone.Identifier
