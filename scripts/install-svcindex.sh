@@ -24,7 +24,7 @@ Options:
 Notes:
   - This installs svcindex into /opt/svcindex with a Python venv and a systemd unit.
   - Requires python3 + python3-venv.
-  EOF
+EOF
 }
 
 while [[ $# -gt 0 ]]; do
