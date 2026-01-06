@@ -1,0 +1,19 @@
+# virtualenv
+.venv/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# packaging / editable installs
+*.egg-info/
+dist/
+build/
+
+# local tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
