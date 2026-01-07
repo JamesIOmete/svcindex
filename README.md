@@ -71,6 +71,33 @@ sudo systemctl restart svcindex-agent
 Docker containers are only listed if they include `svcindex.enable=true` labels.
 See `docs/docker-labels.md`.
 
+## Running Docker containers with svcindex labels
+
+When the agent runs with `--docker`, svcindex auto-discovers containers that opt-in via labels. Use the helper script to launch images with the right metadata baked in:
+
+```bash
+./scripts/svcindex-docker-run.sh --name intercept --image intercept:latest \
+  --publish 5050:5050 --publish 5000:5000 --ui-port 5050 --health-path /status \
+  --description "Intercept // Signal Intelligence" --remove-existing
+```
+
+- Pick a health-style endpoint (e.g., `/status`). If the app lacks one, fall back to `/`.
+- Dry run the command before launching:
+
+  ```bash
+  ./scripts/svcindex-docker-run.sh --name demo --image nginx:alpine \
+    --publish 8080:80 --ui-port 8080 --dry-run
+  ```
+
+- Pass extra docker args with `--extra` (repeat as needed):
+
+  ```bash
+  ./scripts/svcindex-docker-run.sh --name grafana --image grafana/grafana \
+    --publish 3000:3000 --ui-port 3000 \
+    --extra "-e GF_SECURITY_ADMIN_PASSWORD=change_me" \
+    --extra "-v /srv/grafana:/var/lib/grafana"
+  ```
+
 ## Repo layout
 
 - `svcindex/` Python app (agent + hub)
